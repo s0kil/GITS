@@ -7,8 +7,10 @@ module Git
   end
 
   def self.clone?(repository, target_path)
-    Git.clone(repository, path: target_path, options: {
-                depth: 1
-              })
+    Git.clone(
+      repository,
+      path: target_path,
+      options: { depth: 1 }
+    )
   end
 end
