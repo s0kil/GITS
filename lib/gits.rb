@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Parse URL or Local repo
-# TODO: If online repo, download in tmp dir and add to config
-# TODO: search the dir
-# TODO: when re-opening the app, provide options for searching previous repositories
-
 require 'tmpdir'
 require 'cli/ui'
 
@@ -24,7 +19,7 @@ module Gits
     @repositories.push(working_dir) if Git.repository?(working_dir)
   end
 
-  def self.previously_cloned_repositories
+  def self.show_cloned_repositories
     cloned_repositories =
       Dir.glob('**', base: @gits_dir)
          .map do |user_dir|
