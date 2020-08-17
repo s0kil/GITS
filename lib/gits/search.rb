@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Gits
   # Methods To Search Folder Recursively
   class Search

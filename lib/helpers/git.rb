@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Helper For Working With Git Repositories
 module Git
   require 'git'

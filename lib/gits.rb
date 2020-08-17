@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'tmpdir'
 require 'cli/ui'
 
@@ -22,9 +20,9 @@ module Gits
   def self.show_cloned_repositories
     cloned_repositories =
       Dir.glob('**', base: @gits_dir)
-         .map do |user_dir|
+        .map do |user_dir|
         Dir.glob('**', base: File.join(@gits_dir, user_dir))
-           .map { |repo_dir| File.join(@gits_dir, user_dir, repo_dir) }
+          .map { |repo_dir| File.join(@gits_dir, user_dir, repo_dir) }
       end.flatten
 
     @repositories.concat cloned_repositories
