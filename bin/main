@@ -6,7 +6,7 @@ require_relative '../lib/gits'
 Gits.initialize
 
 begin
-  Gits.previously_cloned_repositories
+  Gits.show_cloned_repositories
   Gits.repository_prompt
   Gits.handle_selected_repository
 
