@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Thanks To: https://github.com/JuanitoFatas/git-remote-parser
 
 module Gits
