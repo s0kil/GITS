@@ -6,8 +6,9 @@ require_relative '../lib/gits'
 Gits.initialize
 
 begin
+  Gits.previously_cloned_repositories
   Gits.repository_prompt
-  Gits.clone_selected_repository
+  Gits.handle_selected_repository
 
   loop do
     Gits.search_query_prompt
