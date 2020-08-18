@@ -6,5 +6,5 @@ Gem::Specification.new do |spec|
   spec.description = 'Search a Git repository for exact code matches'
   spec.authors = ['s0kil']
   spec.metadata = { 'source_code_uri' => 'https://github.com/danielsokil/GITS' }
-  spec.required_ruby_version = '~> 2.4'
+  spec.required_ruby_version = '~> 2.7'
 end
