@@ -20,11 +20,8 @@ begin
     result =
       Gits.search_results.matches.each_with_object({}) do |search_result, acc|
         key = search_result.file
-        if acc[key]
-          acc[key].push(search_result.body)
-        else
-          acc[key] = [search_result.body]
-        end
+        value = Rainbow('|').green + search_result.body
+        acc[key] ? acc[key].push(value) : acc[key] = [value]
       end
 
     result.each do |file, matches|
