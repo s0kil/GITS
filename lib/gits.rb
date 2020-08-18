@@ -17,7 +17,7 @@ module Gits
     @repositories.push(working_dir) if Git.repository?(working_dir)
   end
 
-  def self.show_cloned_repositories
+  def self.cloned_repositories
     cloned_repositories =
       Dir.glob('**', base: @gits_dir)
         .map do |user_dir|
@@ -26,10 +26,6 @@ module Gits
       end.flatten
 
     @repositories.concat cloned_repositories
-
-    @repositories.each_with_index do |repo, index|
-      puts "#{index}: #{repo}"
-    end
   end
 
   def self.repository_prompt

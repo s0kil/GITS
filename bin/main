@@ -1,17 +1,36 @@
 #!/usr/bin/env ruby
+
+require 'rainbow'
+
 require_relative '../lib/gits'
 
 Gits.initialize
 
 begin
-  Gits.show_cloned_repositories
+  Gits.cloned_repositories.each_with_index do |repo, index|
+    puts "#{index}: #{Rainbow(repo).underline}"
+  end
+
   Gits.repository_prompt
   Gits.handle_selected_repository
 
   loop do
     Gits.search_query_prompt
 
-    puts Gits.search_results
+    result =
+      Gits.search_results.matches.each_with_object({}) do |search_result, acc|
+        key = search_result.file
+        if acc[key]
+          acc[key].push(search_result.body)
+        else
+          acc[key] = [search_result.body]
+        end
+      end
+
+    result.each do |file, matches|
+      puts Rainbow(file).underline
+      puts matches
+    end
   end
 rescue Interrupt => _e
   exit
