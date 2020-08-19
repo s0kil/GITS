@@ -40,32 +40,7 @@ module Gits
   def self.handle_selected_repository
     return if @selected_repository == @repositories.first || Git.repository?(@selected_repository)
 
-    # Selected Previously Cloned Repository
-    repository_index = Integer(@selected_repository, exception: false)
-    unless repository_index.nil?
-      # Check If Selection Is Out-Of-Bounds
-      unless @repositories[repository_index]
-        puts "#{repository_index} Is An Invalid Selection"
-        exit
-      end
-
-      @selected_repository = @repositories[repository_index]
-      return # We Do Not Want To Continue
-    end
-
-    # Selected A New Repository
-    git_remote = Gits::Parser.new.parse(@selected_repository)
-
-    # /tmp/gits/git_repo_owner/git_repo_name
-    repo_dir = File.join(@gits_dir, git_remote.owner, git_remote.repo)
-
-    unless Dir.exist?(repo_dir)
-      FileUtils.mkdir_p(repo_dir) # Recursively Create Directories
-      puts "Downloading: #{git_remote.html_url} -> #{repo_dir}"
-      Git.clone(git_remote.html_url, repo_dir)
-    end
-
-    @selected_repository = repo_dir
+    selected_new_repository? if selected_previously_cloned_repository? == false
   end
 
   def self.search_query_prompt
@@ -75,5 +50,42 @@ module Gits
 
   def self.search_results
     @search_client.search(@selected_repository, @search_query)
+  end
+
+  def self.selected_previously_cloned_repository?
+    repository_index = Integer(@selected_repository, exception: false)
+    if repository_index.nil?
+      false
+    else
+      # Check If Selection Is Out-Of-Bounds
+      unless @repositories[repository_index]
+        puts "#{repository_index} Is An Invalid Selection"
+        exit
+      end
+
+      @selected_repository = @repositories[repository_index]
+
+      true
+    end
+  end
+
+  def self.selected_new_repository?
+    git_remote = Gits::Parser.new.parse(@selected_repository)
+    if git_remote.nil?
+      puts "The Selected Repository (#{@selected_repository}) Is Not Valid"
+      exit
+    else
+      # /tmp/gits/git_repo_owner/git_repo_name
+      repo_dir = File.join(@gits_dir, git_remote.owner, git_remote.repo)
+
+      unless Dir.exist?(repo_dir)
+        FileUtils.mkdir_p(repo_dir) # Recursively Create Directories
+        puts "Downloading: #{git_remote.html_url} -> #{repo_dir}"
+        Git.clone(git_remote.html_url, repo_dir)
+      end
+
+      @selected_repository = repo_dir
+      true
+    end
   end
 end
