@@ -50,7 +50,7 @@ module Gits
       end
 
       @selected_repository = @repositories[repository_index]
-      return
+      return # We Do Not Want To Continue
     end
 
     # Selected A New Repository
