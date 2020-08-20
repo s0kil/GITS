@@ -1,7 +1,7 @@
+require 'git'
+
 # Helper For Working With Git Repositories
 module Git
-  require 'git'
-
   def self.repository?(path)
     Dir.exist?(path) && Dir.children(path).include?('.git')
   end
