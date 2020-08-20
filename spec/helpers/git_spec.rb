@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-require_relative '../../lib/helpers/git'
+require './lib/helpers/git.rb'
 
 RSpec.describe Git do
   describe '#repository?' do
