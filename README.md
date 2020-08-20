@@ -14,6 +14,7 @@ This project aims at creating a simple to use tool that searches a Git repositor
 ### Dependencies / Requirements
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
+  - Note: You are required to install `ripgrep` manually, it's not included with `bundle install`.
 
 ### Setup
 
